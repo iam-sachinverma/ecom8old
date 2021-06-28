@@ -25,21 +25,20 @@
       <p class="login-box-msg">Sign in to start your session</p>
       
       @if(Session::has('error_message'))
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>{{ Session::get('error_message')}}</strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="false"><i class="far fa-times-circle"></i></span>
-        </button>
-      </div>
+        <div class="alert alert-danger alert-dismissible rounded-0" style="margin-top: 10px;">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>{{ Session::get('error_message')}}</strong>
+        </div>
       @endif
 
       @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
+        <div class="alert alert-danger alert-dismissible rounded-0" style="margin-top: 10px;">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <li style="list-style-type:none;">{{ $error }}</li>
                 @endforeach
-            </ul>
+            </strong>
         </div>
       @endif
 
