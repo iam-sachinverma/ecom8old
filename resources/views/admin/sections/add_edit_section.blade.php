@@ -9,12 +9,25 @@
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Catalogues</h1>
+
+          @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible rounded-0" style="margin-top: 10px;">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>
+                    @foreach ($errors->all() as $error)
+                        <li style="list-style-type:none;">{{ $error }}</li>
+                    @endforeach
+                </strong>
+            </div>
+          @endif
+
           @if(Session::has('success_message'))
             <div class="alert alert-success alert-dismissible rounded-0" style="margin-top: 10px;">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong>{{ Session::get('success_message')}}</strong>
             </div>
           @endif
+
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">

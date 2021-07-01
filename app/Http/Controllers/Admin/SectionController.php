@@ -20,12 +20,9 @@ class SectionController extends Controller
         if($id==""){
             $title = "Add Section";
             $section = new Section;
-            $sectiondata = array();
             $message = "Section Added Successfully";
         }else{
             $title = "Edit Section";
-            $sectiondata = Section::where('id',$id)->first();
-            $sectiondata = json_decode(json_encode($sectiondata),true);
             $section = Section::find($id);
             $message = "Section Updated Successfully";
         }
@@ -33,8 +30,17 @@ class SectionController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
             //echo "<pre>"; print_r($data); die;
+
+            $rules = [
+                'section_name' => 'required',   
+            ];
+            $customMessages = [
+                'section_name.required' => 'Section Name is required',      
+            ];
+   
+         $this->validate($request,$rules,$customMessages);
+
          $section->name = $data['section_name'];
-         $section->status = 0;
          $section->save();
  
          Session::flash('success_message',$message);
@@ -42,7 +48,7 @@ class SectionController extends Controller
         
         }
  
-        return view('admin.sections.add_edit_section')->with(compact('title','section','sectiondata'));
+        return view('admin.sections.add_edit_section')->with(compact('title','section'));
     }
  
     public function deleteSection($id){
