@@ -107,17 +107,6 @@
                     @endif
                 </div>
 
-              <!--  <div class="form-group">
-                  <label for="category_image">Category Image</label>
-                  <input type="file" class="form-control" name="admin_image" id="admin_image" accept="image/*">
-                  @if(!empty(Auth::guard('admin')->user()->image))
-                    <a target="_blank" href="{{ url('images/admin_images/admin_photos/'.Auth::guard('admin')->user()->image) }}">View Image</a>
-                    <input type="hidden" id="current_admin_image" name="current_admin_image" value="{{ Auth::guard('admin')->user()->image }}">
-                  @endif
-                </div> -->
-
-
-              
               </div>
             </div>
 
