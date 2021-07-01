@@ -35,6 +35,22 @@ Route::prefix('/admin')->namespace('App\\Http\\Controllers\\Admin')->group(funct
         Route::post('update-current-pwd','AdminController@updateCurrentPassword');
         Route::match(['get','post'],'update-admin-details','AdminController@updateAdminDetails');
     });
+
+    //Sections
+    Route::get('sections','SectionController@sections');
+    Route::post('update-section-status','SectionController@updateSectionStatus');
+    Route::match(['get','post'],'add-edit-section/{id?}','SectionController@addEditSection');
+    Route::get('delete-section-image/{id}','SectionController@deleteSectionImage');
+    Route::get('delete-section/{id}','SectionController@deleteSection');
+
+    // Categories
+    Route::get('categories','CategoryController@categories');
+    Route::post('update-category-status','CategoryController@updateCategoryStatus');
+    Route::match(['get','post'],'add-edit-category/{id?}','CategoryController@addEditCategory');
+    Route::post('append-categories-level','CategoryController@appendCategoryLevel');
+    Route::get('delete-category-image/{id}','CategoryController@deleteCategoryImage');
+    Route::get('delete-category/{id}','CategoryController@deleteCategory');
+
     
 
 });
