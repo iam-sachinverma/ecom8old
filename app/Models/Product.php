@@ -14,4 +14,12 @@ class Product extends Model
     public function section(){
         return $this->belongsTo('App\Models\Section','section_id')->select('id','name');
     }
+
+    public function attributes(){
+        return $this->hasMany('App\Models\ProductsAttribute');
+    }
+
+    public function images(){
+        return $this->hasMany('App\Models\ProductsImage');
+    }
 }

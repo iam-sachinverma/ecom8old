@@ -43,7 +43,8 @@
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Product Name</th>
+                  <th>Name</th>
+                  <th>Image</th>
                   <th>Section</th>
                   <th>Category</th> 
                   <th>Status</th> 
@@ -55,6 +56,16 @@
                 <tr>
                   <td>{{ $product->id }}</td>
                   <td>{{ $product->product_name }}</td>
+                 
+                  <td>
+                    <?php $product_image_path = "images/product_images/small/".$product->main_image; ?>
+                    @if(!empty($product->main_image) && file_exists($product_image_path))
+                      <img style="width: 100px;" src="{{ asset('images/product_images/small/'.$product->main_image) }}">
+                    @else 
+                      <img style="width: 100px;" src="{{ asset('images/product_images/small/no-image.png') }}">
+                    @endif 
+                  </td>
+                    
                   <td>{{ $product->section->name }}</td>
                   <td>{{ $product->category->category_name }}</td>
                   <td>
@@ -68,8 +79,10 @@
                   </td>
 
                   <td class="center"><!-- Action Icons -->
-                    <a title="Edit Product" href="{{ url('admin/add-edit-product/'.$product->id) }}"><i class="fas fa-edit"></i></a>&nbsp; &nbsp;&nbsp; &nbsp;
-                    <a href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}"
+                    <a title="Edit Product" href="{{ url('admin/add-edit-product/'.$product->id) }}"><i class="fas fa-edit"></i></a>&nbsp;
+                    <a title="Add/Edit Attributes" href="{{ url('admin/add-attributes/'.$product->id) }}"><i class="fab fa-adn"></i></a> &nbsp;
+                    <a title="Add Product Images" href="{{ url('admin/add-images/'.$product->id) }}"><i class="fas fa-file-image"></i></a> &nbsp;
+                    <a title="Delete Product" href="javascript:void(0)" class="confirmDelete" record="product" recordid="{{ $product->id }}"
                     <?php /*href="{{ url('admin/delete-product/'.$product->id) }}"*/ ?>>&nbsp;<i class="fas fa-trash-alt"></i></a> 
                   </td><!-- Action Icons -->
 
@@ -79,7 +92,8 @@
                 <tfoot>
                 <tr>
                   <th>ID</th>
-                  <th>Product Name</th>
+                  <th>Name</th>
+                  <th>Image</th>
                   <th>Section</th>
                   <th>Category</th> 
                   <th>Status</th> 

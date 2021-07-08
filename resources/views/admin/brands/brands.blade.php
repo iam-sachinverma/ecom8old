@@ -66,7 +66,7 @@
                   </td>
                   <td class="center">
                     <a title="Edit Brand" href="{{ url('admin/add-edit-brand/'.$brand->id) }}"><i class="fas fa-edit"></i></a>&nbsp; &nbsp;&nbsp; &nbsp;
-                    <a href="javascript:void(0)" class="confirmDelete" record="brand" recordid="{{ $brand->id }}"
+                    <a title="Delete Brand" href="javascript:void(0)" class="confirmDelete" record="brand" recordid="{{ $brand->id }}"
                     <?php /*href="{{ url('admin/delete-brand/'.$brand->id) }}"*/ ?>>&nbsp;<i class="fas fa-trash-alt"></i></a> 
                   </td>
                 </tr>

@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
+  <!-- Header -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -49,7 +49,8 @@
   <section class="content">
     <div class="container-fluid">
       <form name="productForm" id="productForm" @if(empty($productdata['id'])) action="{{ url('admin/add-edit-product') }}" @else action="{{ url('admin/add-edit-product/'.$productdata['id']) }}" @endif method="post" enctype="multipart/form-data">@csrf
-        <div class="card card-default">
+        <div class="card card-default"><!-- Card -->
+         
           <div class="card-header">
             <h3 class="card-title">{{ $title }}</h3>
             <div class="card-tools">
@@ -71,7 +72,25 @@
                   <label>Select Category</label>
                   <select name="category_id" id="category_id" class="form-control select2" style="width: 100%;">
                     <option value="">Select</option>
-                   
+                    @foreach($categories as $section)
+                     <optgroup label="{{ $section['name'] }}"></optgroup>
+                      @foreach($section['categories'] as $category)
+                        <option value="{{ $category['id'] }}" 
+                          @if(!empty(@old('category_id')) && $category['id']==@old('category_id')) selected=""
+                          @elseif(!empty($productdata['category_id']) && $productdata['category_id']==$category['id']) selected=""
+                          @endif> &nbsp;&nbsp;
+                          {{ $category['category_name'] }}
+                        </option>
+                        @foreach($category['subcategories'] as $subcategory)
+                          <option value="{{ $subcategory['id'] }}"
+                            @if(!empty(@old('category_id')) && $subcategory['id']==@old('category_id')) selected="" 
+                            @elseif(!empty($productdata['category_id']) && $productdata['category_id']==$subcategory['id']) selected="" 
+                            @endif> &nbsp;&nbsp;&nbsp;&nbsp;&#8594;&nbsp;
+                            {{ $subcategory['category_name'] }}
+                          </option> 
+                        @endforeach
+                      @endforeach                    
+                    @endforeach
                   </select>
                 </div>
               
@@ -89,13 +108,15 @@
                 <div class="form-group">
                   <label for="brand_id">Select Brand</label>
                   <select name="brand_id" id="brand_id" class="form-control select2" style="width: 100%;">
-                   <option value="">Select</option>
-                   @foreach($brands as $brand)
-                    <option value="{{ $brand['id'] }}"
-                     @if(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected="" @endif>
-                     {{ $brand['name'] }}
-                    </option>
-                   @endforeach
+                    <option value="">Select</option>
+                    @foreach($brands as $brand)
+                      <option value="{{ $brand['id'] }}"
+                        @if(!empty(@old('brand_id')) && $brand['id']==@old('brand_id')) selected=""
+                        @elseif(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected=""
+                        @endif>
+                        {{ $brand['name'] }}
+                      </option>
+                    @endforeach
                   </select>
                 </div>
                 
@@ -147,14 +168,19 @@
                         <span class="input-group-text" id="">Upload</span>
                       </div>   
                     </div>
-                     Recommended Image Size: Width:1040px, Height:1200px
+                    <small id="main_image" class="form-text text-muted">
+                      Recommended Image Size: Width:1000px, Height:1000px 
+                    </small>
                      @if(!empty($productdata['main_image']))
-                     <div><img style="width:80px; margin-top:9px;" src="{{ asset('images/product_images/small/'.$productdata['main_image']) }}">
-                     &nbsp;<a class="confirmDelete" href="javascript:void(0)" record="product-image" recordid="{{ $productdata['id'] }}">Delete Image</a>
-                     </div>
+                      <div>
+                        <img style="width:80px; margin-top:9px;" src="{{ asset('images/product_images/small/'.$productdata['main_image']) }}">&nbsp;
+                        <a class="confirmDelete" href="javascript:void(0)" record="product-image" recordid="{{ $productdata['id'] }}">Delete Image</a>
+                      </div>
                      @endif
                 </div>
+              </div>  
 
+              <div class="col-12 col-sm-6">
                 <div class="form-group">
                   <label for="product_video">Product video</label>
                   <div class="input-group">
@@ -167,10 +193,11 @@
                       </div> 
                     </div>
                     @if(!empty($productdata['product_video']))
-                    <div><br><a href="{{ url('videos/product_videos/'.$productdata['product_video']) }}" download>Download</a> &nbsp;|
-                      &nbsp;<a class="confirmDelete" href="javascript:void(0)" record="product-video" recordid="{{ $productdata['id'] }}">Delete Video</a>
-                    </div>
-                   @endif
+                      <div>
+                        <br><a href="{{ url('videos/product_videos/'.$productdata['product_video']) }}" download>Download</a> &nbsp;|&nbsp;
+                        <a class="confirmDelete" href="javascript:void(0)" record="product-video" recordid="{{ $productdata['id'] }}">Delete Video</a>
+                      </div>
+                    @endif
                 </div>
 
               </div>
@@ -218,14 +245,19 @@
                 
               </div>
             </div>
-
-          </div>
+            
+            <div class="form-group">
+              <label for="meta_keywords">Featured Items&nbsp;&nbsp;</label>
+              <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if(!empty($productdata['is_featured']) && $productdata['is_featured']=="Yes") checked="" @endif>
+            </div>
+              
+          </div><!-- Card Body   -->
         
           <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
 
-        </div>
+        </div><!-- Card -->
       </form>
     </div>
   </section>

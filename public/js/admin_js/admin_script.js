@@ -139,6 +139,74 @@ $(document).ready(function(){
         });
     });
 
+    //Products Attributes ADD/REMOVE FIELD
+
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div><div style="height:10px;"></div><input type="text" name="sku[]" style="width: 120px" value="" placeholder="SKU"/>&nbsp;<input type="text" name="size[]" style="width:120px" value="" placeholder="Size" />&nbsp;<input type="number" name="price[]" style="width: 120px;" value="" placeholder="Price"/>&nbsp;<input type="number" name="stock[]" style="width: 120px" value="" placeholder="Stock"/>&nbsp; <a href="javascript:void(0);" class="remove_button" title="Remove field">&nbsp;&nbsp;<b>Remove</b></a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+
+    // Attribute Active and Inactive Status
+    $(document).on("click",".updateAttributeStatus",function(){      
+        var status = $(this).children("i").attr("status");
+        var attribute_id = $(this).attr("attribute_id");
+        $.ajax({
+            type: 'post',
+            url:'/admin/update-attribute-status',
+            data:{status:status,attribute_id:attribute_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#attribute-"+attribute_id).html("<i class='fas fa-toggle-off fa-lg' aria-hidden='true' status='Inactive'></i>");
+                }else if(resp['status']==1){
+                    $("#attribute-"+attribute_id).html("<i class='fas fa-toggle-on fa-lg' aria-hidden='true' status='Active'></i>");
+                }
+
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });
+
+    // Images Active and Inactive Status
+    $(document).on("click",".updateImageStatus",function(){     
+        var status = $(this).children("i").attr("status");
+        var image_id = $(this).attr("image_id");
+        $.ajax({
+            type: 'post',
+            url:'/admin/update-image-status',
+            data:{status:status,image_id:image_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#image-"+image_id).html("<i class='fas fa-toggle-off fa-lg' aria-hidden='true' status='Inactive'></i>");
+                }else if(resp['status']==1){
+                    $("#image-"+image_id).html("<i class='fas fa-toggle-on fa-lg' aria-hidden='true' status='Active'></i>");
+                }
+
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });
+
+  
+
 
 
     

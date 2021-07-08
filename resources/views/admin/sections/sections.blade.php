@@ -64,7 +64,7 @@
                   </td>
                   <td class="center">
                     <a title="Edit Section" href="{{ url('admin/add-edit-section/'.$section->id) }}"><i class="fas fa-edit"></i></a>&nbsp; &nbsp;&nbsp; &nbsp;
-                    <a href="javascript:void(0)" class="confirmDelete" record="section" recordid="{{ $section->id }}"
+                    <a title="Delete Section" href="javascript:void(0)" class="confirmDelete" record="section" recordid="{{ $section->id }}"
                     <?php /*href="{{ url('admin/delete-section/'.$section->id) }}"*/ ?>>&nbsp;<i class="fas fa-trash-alt"></i></a> 
                   </td>
                 </tr>
