@@ -50,27 +50,26 @@
               <h3 class="card-title">{{ $title }}</h3>
             </div>
             <!-- /.card-header -->
-          <form name="brandForm" id="brandForm" @if(empty($brand['id'])) action="{{ url('admin/add-edit-brand') }}" @else action="{{ url('admin/add-edit-brand/'.$brand['id']) }}" @endif method="post">@csrf
-            <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="brand_name">Brand Name</label>
-                      <input type="text" class="form-control" name="brand_name" id="brand_name" placeholder="Enter Brand Name"
-                       @if(!empty($brand['name'])) value="{{ $brand['name'] }}"
-                       @else value="{{ old('brand_name') }}" @endif>
+            <form name="brandForm" id="brandForm" @if(empty($brand['id'])) action="{{ url('admin/add-edit-brand') }}" @else action="{{ url('admin/add-edit-brand/'.$brand['id']) }}" @endif method="post">@csrf
+              <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="brand_name">Brand Name</label>
+                        <input type="text" class="form-control" name="brand_name" id="brand_name" placeholder="Enter Brand Name"
+                        @if(!empty($brand['name'])) value="{{ $brand['name'] }}"
+                        @else value="{{ old('brand_name') }}" @endif>
+                      </div>
                     </div>
                   </div>
-                </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-          </form>  
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>  
           </div>
           <!-- /.card -->
-
         </div>
         <!-- /.col -->
       </div>

@@ -9,14 +9,14 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Catalogues</h1>
+
             @if(Session::has('success_message'))
-              <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
-               {{ Session::get('success_message')}}
-               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-               </button>
-             </div>
+            <div class="alert alert-success alert-dismissible rounded-0" style="margin-top: 10px;">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>{{ Session::get('success_message')}}</strong>
+            </div>
             @endif
+
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -33,7 +33,6 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <!-- /.card -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Banners</h3>
@@ -42,7 +41,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="sections" class="table table-bordered table-striped">
+                <table id="dataTable" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>ID</th>
@@ -59,7 +58,7 @@
                     <tr>
                         <td>{{ $banner['id'] }}</td>
                         <td>
-                          <img style="width: 150px;" src="{{ asset('images/banner_images/'.$banner['image']) }}">
+                          <img style="width: 100px;" src="{{ asset('images/banner_images/'.$banner['image']) }}">
                         </td>
                         <td>{{ $banner['link'] }}</td>
                         <td>{{ $banner['title'] }}</td>
@@ -74,15 +73,24 @@
                           @endif    
                         </td>
                         <td class="center">
-              
                           <a title="Edit Banner" href="{{ url('admin/add-edit-banner/'.$banner['id']) }}"><i class="fas fa-edit"></i></a>&nbsp; &nbsp;&nbsp; &nbsp;
                           <a href="javascript:void(0)" class="confirmDelete" record="banner" recordid="{{ $banner['id'] }}"
                           <?php /*href="{{ url('admin/delete-brand/'.$brand->id) }}" */ ?>>&nbsp;<i class="fas fa-trash-alt"></i></a>
-                         
                         </td>
                     </tr>
                   @endforeach  
-                  </tbody>  
+                  </tbody> 
+                  <tfoot>
+                    <tr>
+                      <th>ID</th>
+                      <th>Image</th>
+                      <th>Link</th>
+                      <th>Title</th>
+                      <th>Alt</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </tfoot> 
                 </table>
               </div>
               <!-- /.card-body -->

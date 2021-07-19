@@ -82,7 +82,7 @@ class CategoryController extends Controller
                     $imageName = rand(111,99999).'.'.$extension;
                     $imagePath = 'images/category_images/'.$imageName;
                     // Upload the Image
-                    Image::make($image_tmp)->resize(340,300)->save($imagePath);
+                    Image::make($image_tmp)->resize(156,156)->save($imagePath);
                     // Save Category Image
                     $category->category_image = $imageName;
                 }
