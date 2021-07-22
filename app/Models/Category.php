@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     public static function categories(){
-        $getCatgeory = Category::select('id','category_name','parent_id','category_image')->where(['parent_id'=>'ROOT','status'=>1])->get();
+        $getCatgeory = Category::select('id','category_name','parent_id','category_image','url')->where(['parent_id'=>'ROOT','status'=>1])->get();
         $getCatgeory = json_decode(json_encode($getCatgeory),true);
         return $getCatgeory;
     }
@@ -23,5 +23,21 @@ class Category extends Model
 
     public function parentcategory(){
         return $this->belongsTo('App\Models\Category','parent_id')->select('id','category_name');
+    }
+
+    public static function catDetails($url){
+        $catDetails = Category::select('id','parent_id','category_name','url')->with(['subcategories'=>
+        function($query){
+          $query->select('id','parent_id','category_name','url')->where('status',1);
+        }])->where('url',$url)->first()->toArray();
+        //dd($catDetails); die;
+    
+        $catIds = array();
+        $catIds[] = $catDetails['id'];
+        foreach($catDetails['subcategories'] as $key => $subcat){
+            $catIds[] = $subcat['id'];
+        }
+        //dd($catIds); die;
+        return array('catIds'=>$catIds,'catDetails'=>$catDetails);
     }
 }

@@ -50,6 +50,7 @@
 
 <!-- custom javascript -->
 <script src="js/front_js/script.js" type="text/javascript"></script>
+<script src="js/front_js/front_script.js" type="text/javascript"></script>
 
 <!-- PWA -->
 <script src="js/front_js/pwa.js"></script>

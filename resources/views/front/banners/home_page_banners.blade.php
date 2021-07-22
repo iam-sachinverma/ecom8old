@@ -9,7 +9,9 @@ $getBanners =  Banner::getBanners();
             <div class="carousel-inner">
                 @foreach($getBanners as $key => $banner)
                     <div class="carousel-item @if($key==0) active @endif" data-bs-interval="3000">
-                        <img src="{{ asset('images/banner_images/'.$banner['image']) }}" class="card-img" style="height: 170px;" alt="{{ $banner['alt'] }}" title="{{ $banner['title'] }}">
+                        <a @if(!empty($banner['link'])) href="{{ url($banner['link']) }}" @else href="javascript:void(0)" @endif>
+                            <img src="{{ asset('images/banner_images/'.$banner['image']) }}" class="card-img" style="height: 170px;" alt="{{ $banner['alt'] }}" title="{{ $banner['title'] }}">
+                        </a>
                     </div>
                 @endforeach
             </div>
