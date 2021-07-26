@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Models\Category;
 
 require __DIR__.'/auth.php';
 
@@ -86,5 +87,13 @@ Route::namespace('App\\Http\\Controllers\\Front')->group(function(){
     Route::get('/','IndexController@index');
 
     // Listing Page Route
-    Route::get('/{url}','ProductsController@listing');
-});
+     // Route::get('/{url}','ProductsController@listing');
+    $catUrls = Category::select('url')->where('status',1)->get()->pluck('url')->toArray();
+    foreach ($catUrls as $url) {
+        Route::get('/'.$url,'ProductsController@listing');
+    }
+
+    // Product Detail Page
+    Route::get('/product/{code}/{id}','ProductsController@detail');
+    
+}); 

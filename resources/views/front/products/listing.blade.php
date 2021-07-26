@@ -54,7 +54,7 @@
 	</div>
 </section>-->
 
-<section class="filter_products">
+<section id="filter_products" class="filter_products">
 	@include('front.products.ajax_products_listing') 
 </section>
 
@@ -76,45 +76,42 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <article class="offcanvas-body">
-    
-    <label class="form-check mb-2">
-        <input class="form-check-input" type="checkbox">
-        <div class="form-check-label">All sizes</div>
-    </label>
-    <label class="form-check mb-2">
-        <input class="form-check-input" type="checkbox">
-        <div class="form-check-label">Large size</div>
-    </label>
-    <label class="form-check mb-2">
-        <input class="form-check-input" type="checkbox">
-        <div class="form-check-label">Medium size</div>
-    </label>
-    <label class="form-check mb-2">
-        <input class="form-check-input" type="checkbox">
-        <div class="form-check-label">Small size</div>
-    </label>
-    
-    <hr>
 
-    <label class="form-check mb-2">
-        <input class="form-check-input" name="filter123" type="radio">
-        <div class="form-check-label">Cheapest</div>
-    </label>
-    <label class="form-check mb-2">
-        <input class="form-check-input" name="filter123" type="radio">
-        <div class="form-check-label">Best match</div>
-    </label>
-    <label class="form-check mb-2">
-        <input class="form-check-input" name="filter123" type="radio">
-        <div class="form-check-label">Best rated</div>
-    </label>
-    <label class="form-check mb-2">
-        <input class="form-check-input" name="filter123" type="radio">
-        <div class="form-check-label">Newest</div>
-    </label>
-    <hr>
+    @if(isset($page_name) && $page_name == "listing")
 
-    <button type="button" class="btn btn-light w-100" data-bs-dismiss="offcanvas">Apply filter</button>
+        <h5 class="mb-3">Cuisine</h5>
+        @foreach($cuisineArray as $cuisine)
+            <label class="form-check mb-2">
+                <input class="cuisine form-check-input" type="checkbox" name="cuisine[]" id="{{ $cuisine }}" value="{{ $cuisine }}">
+                <div class="form-check-label">{{ $cuisine }}</div>
+            </label>
+        @endforeach
+        
+        <hr>
+
+        <h5 class="mb-3">Country</h5>
+        @foreach($countryArray as $country)
+            <label class="form-check mb-2">
+                <input class="country form-check-input" type="checkbox" name="country[]" id="{{ $country }}" value="{{ $country }}">
+                <div class="form-check-label">{{ $country }}</div>
+            </label>
+        @endforeach
+
+        <hr>
+
+        <h5 class="mb-3">Food Preference</h5>
+        @foreach($foodpreferenceArray as $foodpreference)
+            <label class="form-check mb-2">
+                <input class="foodpreference form-check-input" type="checkbox" name="foodpreference[]" id="{{ $foodpreference }}" value="{{ $foodpreference }}">
+                <div class="form-check-label">{{ $foodpreference }}</div>
+            </label>
+        @endforeach
+
+        <hr>
+
+        <button type="button" class="btn btn-light w-100" data-bs-dismiss="offcanvas">Apply filter</button>
+
+    @endif
 
   </article> <!-- offcanvas-body .// -->
 </aside> <!-- offcanvas.// -->

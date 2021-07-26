@@ -43,7 +43,7 @@
 
 
 <!-- jQuery -->
-<script src="js/front_js/jquery-3.5.0.min.js" type="text/javascript"></script>
+<script src="js/front_js/jquery-1.7.min.js" type="text/javascript"></script>
 
 <!-- Bootstrap 5 JS -->
 <script src="js/front_js/bootstrap.bundle.js" type="text/javascript"></script>

@@ -126,7 +126,6 @@ class ProductsController extends Controller
    
                 }
             }
-
         
           //Save Product Details in Database
           $categoryDetails = Category::find($data['category_id']);
@@ -138,6 +137,9 @@ class ProductsController extends Controller
           $product->product_price = $data['product_price'];
           $product->product_discount = $data['product_discount'];
           $product->description = $data['description'];
+          $product->cuisine = $data['cuisine'];
+          $product->foodpreference = $data['foodpreference'];
+          $product->country = $data['country'];
           $product->meta_title = $data['meta_title'];
           $product->meta_description = $data['meta_description'];
           $product->meta_keywords = $data['meta_keywords'];
@@ -149,6 +151,13 @@ class ProductsController extends Controller
           return redirect('admin/products'); 
         }
 
+        // Product Array
+        $productFilters = Product::productFilters();
+        //echo "<pre>"; print_r($productFilters); die;
+        $cuisineArray = $productFilters['cuisineArray'];
+        $countryArray = $productFilters['countryArray'];
+        $foodpreferenceArray = $productFilters['foodpreferenceArray'];
+
         //Sections with Categories and Sub Categories
         $categories = Section::with('categories')->get();
         $categories = json_decode(json_encode($categories), true);
@@ -157,7 +166,8 @@ class ProductsController extends Controller
         $brands = Brand::where('status',1)->get();
         $brands = json_decode(json_encode($brands), true);
 
-        return view('admin.products.add_edit_product')->with(compact('title','categories','productdata','brands'));
+        return view('admin.products.add_edit_product')->with
+         (compact('title','categories','productdata','brands','cuisineArray','countryArray','foodpreferenceArray'));
     }
 
     public function deleteProductImage($id){

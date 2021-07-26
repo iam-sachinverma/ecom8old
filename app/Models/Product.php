@@ -26,4 +26,12 @@ class Product extends Model
     public function images(){
         return $this->hasMany('App\Models\ProductsImage');
     }
+
+    public static function productFilters(){
+        //Product Filters
+        $productFilters['cuisineArray'] = array('Italian','Indian','Thai','English','Mediterranean');
+        $productFilters['foodpreferenceArray'] = array('Vegetarian','Non Vegetarian','Contain Egg','Vegan');
+        $productFilters['countryArray'] = array('America','England','Australia','Belgium','Canada');
+        return $productFilters;
+    }
 }

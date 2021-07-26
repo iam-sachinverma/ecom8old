@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Route;
 use App\Models\Category;
 use App\Models\Product;
 
 class ProductsController extends Controller
 {
-    public function listing($url,Request $request){
+    public function listing(Request $request){
         Paginator::useBootstrap();
         if($request->ajax()){
             $data = $request->all();
@@ -23,6 +24,23 @@ class ProductsController extends Controller
                 //echo "<pre>"; print_r($categoryDetails); die;
                 $categoryProducts = Product::with('brand')->whereIn('category_id',$categoryDetails['catIds'])->
                     where('status',1);
+
+
+                // if Cuisine Filter selected
+                if(isset($data['cuisine']) && !empty($data['cuisine'])){
+                    $categoryProducts->whereIn('products.cuisine',$data['cuisine']);
+                }
+
+                // if country Filter selected
+                if(isset($data['country']) && !empty($data['country'])){
+                    $categoryProducts->whereIn('products.country',$data['country']);
+                }
+
+                // if foodpreference Filter selected
+                if(isset($data['foodpreference']) && !empty($data['foodpreference'])){
+                    $categoryProducts->whereIn('products.foodpreference',$data['foodpreference']);
+                }
+
     
                 //  Sort Filter
                 if(isset($data['sort']) && !empty($data['sort'])){
@@ -50,6 +68,7 @@ class ProductsController extends Controller
             }
                  
         }else{
+            $url = Route::getFacadeRoot()->current()->uri();
             $categoryCount = Category::where(['url'=>$url,'status'=>1])->count();
             if($categoryCount>0){
                 //echo "Category Exist"; die;
@@ -59,13 +78,24 @@ class ProductsController extends Controller
                     where('status',1);
     
                 $categoryProducts = $categoryProducts->paginate(15);
-                
+
+                // Product Array
+                $productFilters = Product::productFilters();
+                $cuisineArray = $productFilters['cuisineArray'];
+                $countryArray = $productFilters['countryArray'];
+                $foodpreferenceArray = $productFilters['foodpreferenceArray'];
+
+                $page_name = "listing";
                 //echo "<pre>"; print_r($categoryProducts); die;
-                return view('front.products.listing')->with(compact('categoryDetails','categoryProducts','url'));    
+                return view('front.products.listing')->with(compact('categoryDetails','categoryProducts','url','page_name','cuisineArray','countryArray','foodpreferenceArray'));    
             }else{
                 abort(404);
             }   
         }
         
+    }
+
+    public function details($code,$id){
+        return view('front.products.detail');
     }
 }

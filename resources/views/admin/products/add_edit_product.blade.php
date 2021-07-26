@@ -245,9 +245,62 @@
                 
               </div>
             </div>
+
+            <h5 class="mt-3 mb-3">Filter Section:</h5>
+
+            <div class="row">
+              <div class="col-12 col-sm-6">
+
+                <div class="form-group">
+                  <label for="cuisine">Cuisine</label>
+                  <select name="cuisine" id="cuisine" class="form-control select2" style="width: 100%;">
+                    <option value="">Select</option>
+                    @foreach($cuisineArray as $cuisine)
+                      <option value="{{ $cuisine }}"
+                        @if(!empty($productdata['cuisine']) && $productdata['cuisine']==$cuisine) selected=""
+                        @endif>
+                        {{ $cuisine }}
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="foodpreference">Food Preference</label>
+                  <select name="foodpreference" id="foodpreference" class="form-control select2" style="width: 100%;">
+                    <option value="">Select</option>
+                    @foreach($foodpreferenceArray as $foodpreference)
+                      <option value="{{ $foodpreference }}"
+                        @if(!empty($productdata['foodpreference']) && $productdata['foodpreference']==$foodpreference) selected=""
+                        @endif>
+                        {{ $foodpreference }}
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
+
+              </div>
+
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label for="country">Country</label>
+                  <select name="country" id="country" class="form-control select2" style="width: 100%;">
+                    <option value="">Select</option>
+                    @foreach($countryArray as $country)
+                      <option value="{{ $country }}"
+                        @if(!empty($productdata['country']) && $productdata['country']==$country) selected=""
+                        @endif>
+                        {{ $country }}
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+            </div>
             
-            <div class="form-group">
-              <label for="meta_keywords">Featured Items&nbsp;&nbsp;</label>
+            <div class="form-group mt-4">
+              <label for="is_featured">Featured Items&nbsp;&nbsp;</label>
               <input type="checkbox" name="is_featured" id="is_featured" value="Yes" @if(!empty($productdata['is_featured']) && $productdata['is_featured']=="Yes") checked="" @endif>
             </div>
               

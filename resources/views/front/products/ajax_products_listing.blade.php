@@ -47,6 +47,8 @@
                         </div>
                         
                         <div class="price mt-2">₹ {{ $product['product_price'] }}</div>
+
+                        <div class="price mt-2">₹ {{ $product['cuisine'] }}</div>
                         
                         <a href="09.page-listing-e.html#" class="float-end">  
                             <button type="button" class="btn btn-success btn-sm">Add Cart</button>
