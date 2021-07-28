@@ -94,6 +94,8 @@ Route::namespace('App\\Http\\Controllers\\Front')->group(function(){
     }
 
     // Product Detail Page
-    Route::get('/product/{code}/{id}','ProductsController@detail');
+    Route::get('/product/{id}','ProductsController@detail');
+     //Get Product Attribute Price
+     Route::post('/get-product-price','ProductsController@getProductPrice');
     
 }); 

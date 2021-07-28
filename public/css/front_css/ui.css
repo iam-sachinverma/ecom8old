@@ -26,7 +26,7 @@ a:hover {
 }
 .price-wrap {
     letter-spacing: -0.2px;
-    line-height: 1.4;
+    line-height: 0.7;
 }
 .icon-lg,
 .icon-md,
@@ -1577,7 +1577,6 @@ section {
     height: 320px;
     width: 86%;
     overflow: hidden;
-    background: #e9ecef;
     text-align: center;
     margin-right: 0;
     margin-bottom: 0;
@@ -1588,7 +1587,6 @@ section {
 .gallery-wrap .img-big-wrap {
     height: 280px;
     overflow: hidden;
-    background: #e9ecef;
     border-bottom: 1px solid #dee2e6;
     text-align: center;
     display: block;
@@ -1602,7 +1600,6 @@ section {
 .gallery-wrap .thumbs-wrap .item-thumb {
     width: 74px;
     height: 56px;
-    background: #e9ecef;
     border: 1px solid #dee2e6;
     border-radius: 0.36rem;
     display: inline-block;

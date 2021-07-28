@@ -323,10 +323,14 @@ class ProductsController extends Controller
                         //$originalName = $image->getClientOriginalName();
                         $extension = $image->getClientOriginalExtension();
                         $imageName = rand(111,9999).time().".".$extension;
-
-                        $large_image_path = 'images/product_images/large/'.$imageName;
+                        $large_image_path = 'images/product_images/large/'.$imageName;//Zoom Details Image
+                        $medium_image_path = 'images/product_images/medium/'.$imageName;//main Image
+                        $small_image_path = 'images/product_images/small/'.$imageName;// thumbnail Image
                         //Upload Large Images 
-                        Image::make($image_tmp)->save($large_image_path); // W:1040 H:1200
+                        Image::make($image_tmp)->save($large_image_path); // W:1000 H:1000
+                        //Upload Images after Resize Small and Medium
+                        Image::make($image_tmp)->resize(370,370)->save($medium_image_path);
+                        Image::make($image_tmp)->resize(156,156)->save($small_image_path);
                         //Save Image In DB
                         $productImage->image = $imageName;
                         $productImage->product_id = $id;
@@ -365,9 +369,17 @@ class ProductsController extends Controller
         // Get Product Image Path
         $large_image_path = 'images/product_images/large/';
 
+        // Delete Product Small Image if exists
+        if(file_exists($small_image_path.$productImage->main_image)){
+            unlink($small_image_path.$productImage->main_image);
+        }
+        // Delete Product Medium Image if exists
+        if(file_exists($medium_image_path.$productImage->main_image)){
+            unlink($medium_image_path.$productImage->main_image);
+        }
         // Delete Product large Image if exists
-        if(file_exists($large_image_path.$productImage->image)){
-            unlink($large_image_path.$productImage->image);
+        if(file_exists($large_image_path.$productImage->main_image)){
+            unlink($large_image_path.$productImage->main_image);
         }
 
         // Delete Product Image from SQL table

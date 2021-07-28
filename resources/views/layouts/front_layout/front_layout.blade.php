@@ -9,18 +9,20 @@
 <meta name=”theme-color” content=”#0d6efd>
 <meta name="apple-mobile-web-app-capable" content="yes"> 
 
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
 <title>PantryShop</title>
 
-<link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<link href="{{ asset('images/front_images/favicon.ico') }}" rel="shortcut icon" type="image/x-icon">
 
 <!-- Bootstrap -->
-<link href="css/front_css/bootstrap.css" rel="stylesheet" type="text/css"/>
+<link href="{{ url('css/front_css/bootstrap.css') }}" rel="stylesheet" type="text/css"/>
 
 <!-- custom style -->
-<link href="css/front_css/ui.css" rel="stylesheet" type="text/css"/>
+<link href="{{ url('css/front_css/ui.css') }}" rel="stylesheet" type="text/css"/>
 
 <!-- Fonticon -->
-<link href="fonts/front/css/round.css" rel="stylesheet" type="text/css" />
+<link href="{{ url('fonts/front/material-icon/css/round.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -41,19 +43,22 @@
 
 @include('layouts.front_layout.front_footer')
 
-
 <!-- jQuery -->
-<script src="js/front_js/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="{{ url('js/front_js/jquery-1.7.min.js') }}" type="text/javascript"></script>
 
 <!-- Bootstrap 5 JS -->
-<script src="js/front_js/bootstrap.bundle.js" type="text/javascript"></script>
+<script src="{{ url('js/front_js/bootstrap.bundle.js') }}" type="text/javascript"></script>
 
 <!-- custom javascript -->
-<script src="js/front_js/script.js" type="text/javascript"></script>
-<script src="js/front_js/front_script.js" type="text/javascript"></script>
+<script src="{{ url('js/front_js/script.js') }}" type="text/javascript"></script>
+<script src="{{ url('js/front_js/front_script.js') }}" type="text/javascript"></script>
+
+<!-- plugin: fancybox  -->
+<link href="{{ url('plugins/front/fancybox/fancybox.min.css') }}" type="text/css" rel="stylesheet">
+<script src="{{ url('plugins/front/fancybox/fancybox.min.js') }}" type="text/javascript"></script>
 
 <!-- PWA -->
-<script src="js/front_js/pwa.js"></script>
+<script src="{{ url('js/front_js/pwa.js') }}"></script>
 
 </body>
 </html>

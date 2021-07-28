@@ -8,6 +8,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductsAttribute;
 
 class ProductsController extends Controller
 {
@@ -95,7 +96,20 @@ class ProductsController extends Controller
         
     }
 
-    public function details($code,$id){
-        return view('front.products.detail');
+    // Product DETAIL Page Note: Use parameters like Product Name or Code or any product detail in URL for SEO 
+
+    public function detail($id){
+        $productDetails = Product::with('brand','category','attributes','images')->find($id)->toArray();
+        //dd($productDetails); die;
+        return view('front.products.detail')->with(compact('productDetails'));
+    }
+
+    public function getProductPrice(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            //echo "<pre>"; print_r($data); die;
+            $getProductPrice = ProductsAttribute::where(['product_id'=>$data['product_id'],'size'=>$data['size']])->first();
+            return $getProductPrice->price;
+        }
     }
 }

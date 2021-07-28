@@ -1,8 +1,17 @@
 $(document).ready(function(){
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     /*$("#sort").on('change',function(){
         this.form.submit();
     });*/
 
+
+    /* Product Sort Filter */
     $("#sort").on('change',function(){
         var sort = $(this).val();
         var cuisine = get_filter("cuisine");
@@ -19,6 +28,7 @@ $(document).ready(function(){
         })
     });
 
+    /*  Product Filter  */
     $(".cuisine").on('click',function(){
         var cuisine = get_filter(this);
         var sort = $("#sort option:selected").val();
@@ -61,6 +71,7 @@ $(document).ready(function(){
         })
     });
     
+    /* Get Filter Function */
     function get_filter(class_name){
         var filter = [];
         $('.'+class_name+':checked').each(function(){
@@ -68,5 +79,22 @@ $(document).ready(function(){
         });
         return filter;
     }
+
+    /* Get Attr Price */
+    $("#getPrice").on('change',function(){
+        var size = $(this).val();
+        var product_id = $(this).attr("product-id");
+        $.ajax({
+           url:'/get-product-price',
+           data:{size:size,product_id:product_id},
+           type:'post',
+           success:function(resp){
+               $(".getAttrPrice").html("MRP: Rs "+resp);
+           },error:function(){
+               alert("Error");
+           }
+        });
+    });
+
 
 });
