@@ -3,7 +3,7 @@
         @foreach($categoryProducts as $product)
             <li class="col-12 col-sm-12 col-md-6 mb-3 border-bottom">
                 <article class="product-list mb-2">
-                    <a href="09.page-listing-e.html#" class="img-wrap">
+                    <a href="{{ url('product/'.$product['id']) }}" class="img-wrap">
                         @if(isset($product['main_image']))
                          <?php $product_image_path = 'images/product_images/small/'.$product['main_image']; ?>
                         @else
@@ -23,7 +23,7 @@
                         </a>
 
                         <p class="title" style="font-size: 13px;">{{ $product['brand']['name'] }}</p>
-                        <h1 class="title fs-6 fw-normal">{{ $product['product_name'] }}</h1>
+                        <a href="{{ url('product/'.$product['id']) }}"><h1 class="title fs-6 fw-normal">{{ $product['product_name'] }}</h1></a>
 
                         <div class="rating-wrap mb-2">
                             <ul class="rating-stars">
@@ -47,8 +47,6 @@
                         </div>
                         
                         <div class="price mt-2">₹ {{ $product['product_price'] }}</div>
-
-                        <div class="price mt-2">₹ {{ $product['cuisine'] }}</div>
                         
                         <a href="09.page-listing-e.html#" class="float-end">  
                             <button type="button" class="btn btn-success btn-sm">Add Cart</button>

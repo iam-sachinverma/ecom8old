@@ -38,7 +38,9 @@
 			<h1 class="fs-5 fw-normal">{{ $productDetails['product_name'] }}</h1>	
 		</div>
 		<div class="price-wrap">
-			<span class="h6 getAttrPrice">MRP:&nbsp;&nbsp;Rs {{ $productDetails['product_price'] }}</span> 
+			<span class="h6 getAttrPrice">
+				MRP:&nbsp;&nbsp;Rs {{ $productDetails['product_price'] }}
+			</span> 
 			<span class="h6 discount">&nbsp;&nbsp;<code>{{ $productDetails['product_discount'] }}%&nbsp;Off</code></span>
 			<br><small id="main_image" class="form-text text-muted" style="font-size: 10px;">
 				(Inclusive of all taxes)
@@ -57,19 +59,23 @@
 		</div>
 	</section>
 
-	<section class="productDetailattributes mx-2 mt-2">
-		<select name="size" id="getPrice" product-id="{{ $productDetails['id'] }}" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-			<option selected>Pack Sizes</option>
-			@foreach( $productDetails['attributes'] as $attribute)
-				<option value="{{ $attribute['size'] }}">{{ $attribute['size'] }}</option>
-			@endforeach
-		</select>  
-	</section>
+	@if(count($productDetails['attributes'])>0)
+		<section class="productDetailattributes mx-3 mt-2">
+		
+			<h6>Pack Sizes</h6>
+			<select name="size" id="getPrice" product-id="{{ $productDetails['id'] }}" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+				@foreach( $productDetails['attributes'] as $attribute)
+					<option value="{{ $attribute['size'] }}">{{ $attribute['size'] }}&nbsp;-&nbsp; ₹ {{ $attribute['price'] }}</option>
+				@endforeach
+			</select>
+
+		</section>
+	@endif
 
     <hr class="divider">
 
 	<div class="detailDeliveryTime text-start">
-		<img src="{{ asset('images/front_images/truck.png') }}"><h3 class="px-3 fw-normal my-2" style="font-size: 13px;">Standard : &nbsp;Today&nbsp;&nbsp;9:00AM - 11:00AM</h3>
+		<img src="{{ asset('images/front_images/fast-delivery.png') }}"><h3 class="px-3 fw-normal my-2" style="font-size: 13px;">Standard : &nbsp;Today&nbsp;&nbsp;9:00AM - 11:00AM</h3>
 	</div>
 
 	<hr class="divider">
@@ -126,75 +132,59 @@
 	</section>
 
 	<hr class="divider">
-	<section>
-		<h5 class="title-section">Similar items</h5>
+
+	<section class="similarProduct">
+		<h5 class="title-section">Similar Products</h5>
 		<div class="p-3 scroll-horizontal">
-			<div class="item">
-				<a href="15.page-detail-a.html#" class="product">
-					<div class="img-wrap"> <img src="images/items/1.jpg"> </div>
-					<div class="text-wrap">
-						<div class="price">$13.90</div> <!-- price .// -->
-						<p class="title">Great item name</p>
+			@foreach($relatedProducts as $product)
+				<div class="item">
+					<div href="#" class="product">
+						<a href="{{ url('product/'.$product['id']) }}" class="img-wrap rounded-0">
+							@if(isset($product['main_image']))
+							 <?php $product_image_path = 'images/product_images/small/'.$product['main_image']; ?>
+							@else
+							 <?php $product_image_path = ''; ?>
+							@endif
+							@if(!empty($product['main_image']) && file_exists($product_image_path))
+							 <img src="{{ asset($product_image_path) }}" alt="">
+							@else
+							 <img src="{{ asset('images/product_images/small/no-image.png') }}" alt="">
+							@endif 
+						</a>	
+						<div class="p-2 text-wrap" style="border: 1px solid #eee; border-top: none;">
+							
+							<p class="title brand my-1" style="font-weight: 450;font-size: 13px;">{{ $product['brand']['name'] }}</p>
+							<p class="title" style="font-weight: 410; font-size: 16px;">{{ $product['product_name'] }}</p>
+							
+							<div class="price my-2" style="font-weight: 550; font-size: 15px;">Rs {{ $product['product_price'] }}</div> <!-- price .// -->
+						
+							<div class="d-grid gap-2">
+								<button class="btn btn-primary btn-sm my-2" type="button">Cart</button>
+							</div>
+
+						</div>
 					</div>
-				</a>
-			</div>
-			<div class="item">
-				<a href="15.page-detail-a.html#" class="product">
-					<div class="img-wrap"> <img src="images/items/2.jpg"> </div>
-					<div class="text-wrap">
-						<div class="price">$90.80</div> <!-- price .// -->
-						<p class="title">Product name</p>
-					</div>
-				</a>
-			</div>
-			<div class="item">
-				<a href="15.page-detail-a.html#" class="product">
-					<div class="img-wrap"> <img src="images/items/3.jpg"> </div>
-					<div class="text-wrap">
-						<div class="price">$63.00</div> <!-- price .// -->
-						<p class="title">Great item name</p>
-					</div>
-				</a>
-			</div>
-			<div class="item">
-				<a href="15.page-detail-a.html#" class="product">
-					<div class="img-wrap"> <img src="images/items/4.jpg"> </div>
-					<div class="text-wrap">
-						<div class="price">$9.50</div> <!-- price .// -->
-						<p class="title">Product name</p>
-					</div>
-				</a>
-			</div>
-			<div class="item">
-				<a href="15.page-detail-a.html#" class="product">
-					<div class="img-wrap"> <img src="images/items/5.jpg"> </div>
-					<div class="text-wrap">
-						<div class="price">$63.00</div> <!-- price .// -->
-						<p class="title">Great item name</p>
-					</div>
-				</a>
-			</div>
-			<div class="item">
-				<a href="15.page-detail-a.html#" class="product">
-					<div class="img-wrap"> <img src="images/items/6.jpg"> </div>
-					<div class="text-wrap">
-						<div class="price">$63.00</div> <!-- price .// -->
-						<p class="title">Product name</p>
-					</div>
-				</a>
-			</div>
-			<div class="item">
-				<a href="15.page-detail-a.html#" class="product">
-					<div class="img-wrap"> <img src="images/items/7.jpg"> </div>
-					<div class="text-wrap">
-						<div class="price">$63.00</div> <!-- price .// -->
-						<p class="title">Great item name</p>
-					</div>
-				</a>
-			</div>
+				</div>
+			@endforeach
+
 		</div>  <!-- scroll-horizontal.// -->
 	</section>
+
 	<hr class="divider">
+
+	<section class="otherDetailInfo">
+		<h5 class="title-section">More Information</h5>
+		<hr>
+		<div class="info mb-4" style="border-bottom: 1px solid #eee">	
+			<nav style="--bs-breadcrumb-divider: '>'; margin-left: 1.3rem; " aria-label="breadcrumb">
+				<ol class="breadcrumb">
+				  <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+				  <li class="breadcrumb-item"><a href="{{ url('/'.$productDetails['category']['url']) }}">{{ $productDetails['category']['category_name'] }}</a></li>
+				  <li class="breadcrumb-item active" aria-current="page">{{ $productDetails['product_name'] }}</li>
+				</ol>
+			</nav>
+		</div>	
+	</section>
 
 </main>
 

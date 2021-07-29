@@ -24,7 +24,7 @@ class Product extends Model
     }
 
     public function images(){
-        return $this->hasMany('App\Models\ProductsImage');
+        return $this->hasMany('App\Models\ProductsImage')->where('status',1);
     }
 
     public static function productFilters(){
