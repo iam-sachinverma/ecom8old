@@ -144,7 +144,7 @@ $(document).ready(function(){
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    var fieldHTML = '<div><div style="height:10px;"></div><input type="text" name="sku[]" style="width: 120px" value="" placeholder="SKU"/>&nbsp;<input type="text" name="size[]" style="width:120px" value="" placeholder="Size" />&nbsp;<input type="number" name="price[]" style="width: 120px;" value="" placeholder="Price"/>&nbsp;<input type="number" name="stock[]" style="width: 120px" value="" placeholder="Stock"/>&nbsp; <a href="javascript:void(0);" class="remove_button" title="Remove field">&nbsp;&nbsp;<b>Remove</b></a></div>'; //New input field html 
+    var fieldHTML = '<div><div style="height:10px;"></div><input type="text" name="sku[]" style="width: 120px" value="" placeholder="SKU"/>&nbsp;<input type="text" name="size[]" style="width:120px" value="" placeholder="Size" />&nbsp;<input type="number" step="any" name="price[]" style="width: 120px;" value="" placeholder="Price"/>&nbsp;<input type="number" name="stock[]" style="width: 120px" value="" placeholder="Stock"/>&nbsp; <a href="javascript:void(0);" class="remove_button" title="Remove field">&nbsp;&nbsp;<b>Remove</b></a></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     
     //Once add button is clicked

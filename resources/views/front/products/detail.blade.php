@@ -25,12 +25,26 @@
 	  <i class="material-icons md-shopping_cart text-dark"></i> 
 	</a> 
 
-  
 </header> <!-- app-header.// -->
 
 <main class="app-content mt-2">
 
 	<section class="px-2 mb-2">
+		@if(Session::has('error_message'))
+            <div class="alert alert-warning alert-dismissible rounded-0" style="margin-top: 10px;">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{ Session::get('error_message')}}</strong>
+            </div>
+          @endif
+
+          @if(Session::has('success_message'))
+            <div class="alert alert-success alert-dismissible rounded-0" style="margin-top: 10px;">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{ Session::get('success_message')}}</strong>
+            </div>
+        @endif
+		
+
 		<div class="Detailbrand">
 			<span class="brand badge bg-info bg-gradient mb-1 rounded-0">{{ $productDetails['brand']['name'] }}</span>
 		</div>
@@ -59,23 +73,26 @@
 		</div>
 	</section>
 
-	@if(count($productDetails['attributes'])>0)
-		<section class="productDetailattributes mx-3 mt-2">
-		
-			<h6>Pack Sizes</h6>
-			<select name="size" id="getPrice" product-id="{{ $productDetails['id'] }}" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-				@foreach( $productDetails['attributes'] as $attribute)
-					<option value="{{ $attribute['size'] }}">{{ $attribute['size'] }}&nbsp;-&nbsp; ₹ {{ $attribute['price'] }}</option>
-				@endforeach
-			</select>
-
-		</section>
-	@endif
+	<section class="detailAttr mx-3 mt-2">
+		<h6>Pack Sizes</h6>
+		<form action="{{ url('add-to-cart') }}" method="post" id="addCart">@csrf
+			<input type="hidden" name="product_id" id="product_id" value="{{ $productDetails['id'] }}">
+				<select name="size" id="getPrice" product-id="{{ $productDetails['id'] }}" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required="">
+					@foreach( $productDetails['attributes'] as $attribute)
+						<option value="{{ $attribute['size'] }}">{{ $attribute['size'] }}&nbsp;-&nbsp; ₹ {{ $attribute['price'] }}</option>
+					@endforeach
+				</select>
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="basic-addon1">QTY</span>
+				<input type="number" name="quantity" class="form-control" placeholder="Quantity" aria-label="Username" aria-describedby="basic-addon1" required="">
+			</div>
+		</form>
+	</section>
 
     <hr class="divider">
 
-	<div class="detailDeliveryTime text-start">
-		<img src="{{ asset('images/front_images/fast-delivery.png') }}"><h3 class="px-3 fw-normal my-2" style="font-size: 13px;">Standard : &nbsp;Today&nbsp;&nbsp;9:00AM - 11:00AM</h3>
+	<div class="detailDeliveryTime text-start px-3 my-1">
+		<img src="{{ asset('images/front_images/fast-delivery.png') }}">&nbsp;&nbsp;&nbsp;<span class="fw-normal" style="font-size: 13px;">Standard : &nbsp;Today&nbsp;&nbsp;9:00AM - 11:00AM</span>
 	</div>
 
 	<hr class="divider">
@@ -166,7 +183,6 @@
 					</div>
 				</div>
 			@endforeach
-
 		</div>  <!-- scroll-horizontal.// -->
 	</section>
 
@@ -190,7 +206,7 @@
 
 
 <nav class="bar-bottom">
-	<div class="flex-grow-1 me-2"> <a href="#" class="btn btn-primary">Add to cart</a></div>
+	<div class="flex-grow-1 me-2"> <button class="btn btn-primary" form="addCart">Add to cart</button></div>
 	<div> <a href="15.page-detail-a.html#" class="btn btn-light btn-icon"> <i class="material-icons md-favorite_border"></i>  </a> </div>
 </nav> <!-- nav-bottom -->
 

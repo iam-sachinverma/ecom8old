@@ -93,7 +93,7 @@
                     <div>
                         <input id="sku" type="text" name="sku[]" value="" placeholder="SKU" style="width: 120px;" required=""/>
                         <input id="size" type="text" name="size[]" value="" placeholder="Size" style="width: 120px;" required=""/>
-                        <input id="price" type="number" name="price[]" value="" placeholder="Price" style="width: 120px;" required=""/>
+                        <input id="price" step="any" type="number" name="price[]" value="" placeholder="Price" style="width: 120px;" required=""/>
                         <input id="stock" type="number" name="stock[]" value="" placeholder="Stock" style="width: 120px;" required=""/>
                         <a href="javascript:void(0);" class="add_button" title="Add field">&nbsp;&nbsp;<b>Add</b></a>
                     </div>

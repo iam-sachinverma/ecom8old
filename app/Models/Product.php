@@ -20,7 +20,7 @@ class Product extends Model
     }
 
     public function attributes(){
-        return $this->hasMany('App\Models\ProductsAttribute');
+        return $this->hasMany('App\Models\ProductsAttribute')->where('status',1);
     }
 
     public function images(){

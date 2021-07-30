@@ -17,71 +17,41 @@
 
     <section>
         <h5 class="title-section">Recommended</h5>
+        @foreach($featuredItemsChunk as $key => $featuredItem)
         <div class="p-3 pb-0 scroll-horizontal">
-            <div class="item">
-                <a href="02.page-index-b.html#" class="product">
-                    <div class="img-wrap"> <img src="images/front_images/items/1.jpg"> </div>
-                    <div class="text-wrap">
-                        <div class="price">$13.90</div> <!-- price .// -->
-                        <p class="title">Great item name</p>
+            @foreach($featuredItem as $item)
+            <div class="item @if($key==1) active @endif"> 
+                <div href="#" class="product">
+                    <a href="{{ url('product/'.$item['id']) }}" class="img-wrap rounded-0">
+                        @if(isset($item['main_image']))
+                         <?php $product_image_path = 'images/product_images/small/'.$item['main_image']; ?>
+                        @else
+                         <?php $product_image_path = ''; ?>
+                        @endif
+                        @if(!empty($item['main_image']) && file_exists($product_image_path))
+                         <img src="{{ asset($product_image_path) }}" alt="">
+                        @else
+                         <img src="{{ asset('images/product_images/small/no-image.png') }}" alt="">
+                        @endif 
+                    </a>	
+                    <div class="p-2 text-wrap" style="border: 1px solid #eee; border-top: none;">
+                        
+                        <p class="title brand my-1" style="font-weight: 450;font-size: 13px;">{{ $item['brand']['name'] }}</p>
+                        <p class="title" style="font-weight: 410; font-size: 16px;">{{ $item['product_name'] }}</p>
+                        
+                        <div class="price my-2" style="font-weight: 550; font-size: 15px;">Rs {{ $item['product_price'] }}</div> <!-- price .// -->
+                    
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-sm my-2" type="button">Cart</button>
+                        </div>
+
                     </div>
-                </a>
+                </div>
             </div>
-            <div class="item">
-                <a href="02.page-index-b.html#" class="product">
-                    <div class="img-wrap"> <img src="images/front_images/items/2.jpg"> </div>
-                    <div class="text-wrap">
-                        <div class="price">$90.80</div> <!-- price .// -->
-                        <p class="title">Product name</p>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="02.page-index-b.html#" class="product">
-                    <div class="img-wrap"> <img src="images/front_images/items/3.jpg"> </div>
-                    <div class="text-wrap">
-                        <div class="price">$63.00</div> <!-- price .// -->
-                        <p class="title">Great item name</p>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="02.page-index-b.html#" class="product">
-                    <div class="img-wrap"> <img src="images/front_images/items/4.jpg"> </div>
-                    <div class="text-wrap">
-                        <div class="price">$9.50</div> <!-- price .// -->
-                        <p class="title">Product name</p>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="02.page-index-b.html#" class="product">
-                    <div class="img-wrap"> <img src="images/front_images/items/5.jpg"> </div>
-                    <div class="text-wrap">
-                        <div class="price">$63.00</div> <!-- price .// -->
-                        <p class="title">Great item name</p>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="02.page-index-b.html#" class="product">
-                    <div class="img-wrap"> <img src="images/front_images/items/6.jpg"> </div>
-                    <div class="text-wrap">
-                        <div class="price">$63.00</div> <!-- price .// -->
-                        <p class="title">Product name</p>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="02.page-index-b.html#" class="product">
-                    <div class="img-wrap"> <img src="images/front_images/items/item.jpg"> </div>
-                    <div class="text-wrap">
-                        <div class="price">$63.00</div> <!-- price .// -->
-                        <p class="title">Great item name</p>
-                    </div>
-                </a>
-            </div>
+            @endforeach
+       
         </div> 
+        @endforeach
     </section>
     
     <section>
