@@ -899,6 +899,12 @@ a[class*="product"]:hover .title {
 }
 .product .title {
     font-size: 0.875rem;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .product .price {
     font-weight: 600;

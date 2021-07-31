@@ -168,6 +168,8 @@ class ProductsController extends Controller
 
     // Shopping Cart
     public function cart(){
+        $userCartItems = Cart::userCartItems();
+        echo "<pre>"; print_r($userCartItems); die;
         return view('front.products.cart');
     }
 }
