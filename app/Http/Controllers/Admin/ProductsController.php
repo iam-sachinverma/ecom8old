@@ -222,7 +222,7 @@ class ProductsController extends Controller
 
     }
 
- // Product ATTRIBUTES
+  // Product ATTRIBUTES
 
     public function addAttributes(Request $request,$id){
         if($request->isMethod('post')){
@@ -342,9 +342,14 @@ class ProductsController extends Controller
                 return redirect()->back();
             }
         }
+
         $productdata = Product::with('images')->select('id','product_name','product_code','main_image')->find($id);
         $productdata = json_decode(json_encode($productdata),true);
         //echo "<pre>"; print_r($productdata); die;
+
+        $attributes = ProductsAttribute::where(['product_id'=>$productdata['id'],'status'=>1])->get()->toArray();
+        //echo "<pre>"; print_r($attributes); die;
+
         $title = "Product Images";
         return view('admin.products.add_images')->with(compact('title','productdata'));    
     }

@@ -20,11 +20,11 @@ class Product extends Model
     }
 
     public function attributes(){
-        return $this->hasMany('App\Models\ProductsAttribute')->where('status',1);
+        return $this->hasMany('App\Models\ProductsAttribute');
     }
 
     public function images(){
-        return $this->hasMany('App\Models\ProductsImage')->where('status',1);
+        return $this->hasMany('App\Models\ProductsImage');
     }
 
     public static function productFilters(){
@@ -34,4 +34,5 @@ class Product extends Model
         $productFilters['countryArray'] = array('America','England','Australia','Belgium','Canada');
         return $productFilters;
     }
+
 }

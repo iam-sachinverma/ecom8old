@@ -22,6 +22,7 @@
             @foreach($featuredItems as $item)
             <div class="item"> 
                 <div href="#" class="product">
+                    
                     <a href="{{ url('product/'.$item['id']) }}" class="img-wrap rounded-0">
                         @if(isset($item['main_image']))
                          <?php $product_image_path = 'images/product_images/small/'.$item['main_image']; ?>
@@ -34,6 +35,7 @@
                          <img src="{{ asset('images/product_images/small/no-image.png') }}" alt="">
                         @endif 
                     </a>	
+                    
                     <div class="p-2 text-wrap" style="border: 1px solid #eee; border-top: none;">
                         
                         <p class="title brand my-1" style="font-weight: 450;font-size: 13px;">{{ $item['brand']['name'] }}</p>

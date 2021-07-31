@@ -121,7 +121,7 @@ class CategoryController extends Controller
         }
 
         // Get All Sections
-        $getSections = Section::get();
+        $getSections = Section::where('status',1)->get();
 
         return view('admin.categories.add_edit_category')->with(compact('title','getSections','categorydata','getCategories'));  
     }

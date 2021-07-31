@@ -102,8 +102,14 @@ class ProductsController extends Controller
     // Product DETAIL Page Note: Use parameters like Product Name or Code or any product detail in URL for SEO 
 
     public function detail($id){
-        $productDetails = Product::with('brand','category','attributes','images')->find($id)->toArray();
+        $productDetails = Product::with(['brand','category','attributes'=>function($query){
+            $query->where('status',1);
+        },
+        'images'=>function($query){
+            $query->where('status',1);
+        }])->find($id)->toArray();
         //dd($productDetails); die;
+        
         $relatedProducts = Product::with('brand')->where('category_id',$productDetails['category']['id'])->where('id','!=',$id)->limit(3)->inRandomOrder()->get()->toArray();
         return view('front.products.detail')->with(compact('productDetails','relatedProducts'));
     }

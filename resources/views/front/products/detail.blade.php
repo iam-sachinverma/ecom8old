@@ -35,16 +35,15 @@
               <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <strong>{{ Session::get('error_message')}}</strong>
             </div>
-          @endif
+        @endif
 
-          @if(Session::has('success_message'))
+        @if(Session::has('success_message'))
             <div class="alert alert-success alert-dismissible rounded-0" style="margin-top: 10px;">
               <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <strong>{{ Session::get('success_message')}}</strong>
             </div>
         @endif
 		
-
 		<div class="Detailbrand">
 			<span class="brand badge bg-info bg-gradient mb-1 rounded-0">{{ $productDetails['brand']['name'] }}</span>
 		</div>
