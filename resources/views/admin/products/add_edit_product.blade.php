@@ -111,8 +111,7 @@
                     <option value="">Select</option>
                     @foreach($brands as $brand)
                       <option value="{{ $brand['id'] }}"
-                        @if(!empty(@old('brand_id')) && $brand['id']==@old('brand_id')) selected=""
-                        @elseif(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected=""
+                        @if(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected=""
                         @endif>
                         {{ $brand['name'] }}
                       </option>
@@ -145,7 +144,7 @@
               <div class="col-12 col-sm-6">
 
                 <div class="form-group">
-                  <label for="product_discount">Product Discount</label>
+                  <label for="product_discount">Product Discount (%)</label>
                   <input type="text" class="form-control" id="product_discount" name="product_discount" placeholder="Enter Product Discount"
                   @if(!empty($productdata['product_discount'])) value="{{ $productdata['product_discount'] }}" 
                   @else value="{{ old('product_discount') }}" @endif>

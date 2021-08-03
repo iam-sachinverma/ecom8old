@@ -1,7 +1,6 @@
 @extends('layouts.front_layout.front_layout')
 @section('content')
 
-
 <header class="app-header ondark fixed-top bg-dark text-white">
 	
 	<a href="javascript:history.go(-1)" class="btn-header">
@@ -42,22 +41,9 @@
 	</div>
 </section>
 
-<!-- <section class="gallery-wrap" id="subcat">
-	<div class="px-2 mt-2 thumbs-wrap scroll-horizontal">
-		<a href="#"> 
-			<div class="card text-center text-dark item-subcat">
-				<div class="card-body">
-					<p class="card-text">    </p>
-				</div>
-			</div>
-		</a>
-	</div>
-</section>-->
-
 <section id="filter_products" class="filter_products">
 	@include('front.products.ajax_products_listing') 
 </section>
-
 
 <div class="pagination d-flex justify-content-center">
 	@if(isset($_GET['sort']) && !empty($_GET['sort'] ))

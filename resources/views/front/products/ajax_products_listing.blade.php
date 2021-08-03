@@ -1,3 +1,4 @@
+<?php use App\Models\Product; ?>
 <div id="product" class="p-2">
     <ul class="row">
         @foreach($categoryProducts as $product)
@@ -14,10 +15,11 @@
                         @else
                          <img src="{{ asset('images/product_images/small/no-image.png') }}" alt="">
                         @endif 
-                    </a>
-
+                    </a><!-- main image -->
+                    
                     <div class="info-wrap">
-
+                        <?php $discounted_price = Product::getDiscountedPrice($product['id']); ?>
+                       
                         <a href="09.page-listing-e.html#" class="float-end">  
                             <i class="material-icons md-favorite_border"></i> 
                         </a>
@@ -37,16 +39,18 @@
                             <small class="label-rating text-muted">9/10</small>
                         </div> <!-- rating-wrap end// -->
 
-                        <div class="attribute">
-                            <select class="form-select form-select-sm rounded-0" aria-label=".form-select-sm example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+     
+                        <div class="price mt-2">
+                            @if($discounted_price > 0)
+                             ₹ {{ $discounted_price }}
+                            @endif
+                            &nbsp;
+                            @if($discounted_price > 0)
+                             <del style="font-size: 13px">₹ {{ $product['product_price'] }}</del>
+                            @else
+                             ₹ {{ $product['product_price'] }}
+                            @endif 
                         </div>
-                        
-                        <div class="price mt-2">₹ {{ $product['product_price'] }}</div>
                         
                         <a href="09.page-listing-e.html#" class="float-end">  
                             <button type="button" class="btn btn-success btn-sm">Add Cart</button>

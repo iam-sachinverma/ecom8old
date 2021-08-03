@@ -76,6 +76,10 @@
                 <div class="form-group">
                   <label for="product_name">Product Name:</label>&nbsp;&nbsp; {{ $productdata['product_name'] }}
                 </div>
+
+                <div class="form-group">
+                  <label for="product_name">Product Main Price:</label>&nbsp;&nbsp; {{ $productdata['product_price'] }}
+                </div>
                 
               </div>
 

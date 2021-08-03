@@ -35,4 +35,43 @@ class Product extends Model
         return $productFilters;
     }
 
+    // Product Discount Price
+    public static function getDiscountedPrice($product_id){
+        $proDetails = Product::select('product_price','product_discount','category_id')->
+        where('id',$product_id)->first()->toArray();
+        //echo "<pre>"; print_r($proDetails); die;
+        $catDetails = Category::select('category_discount')->
+        where('id',$proDetails['category_id'])->first()->toArray();
+        
+        // Sale Price = Cost Price - Discount Price
+        if($proDetails['product_discount']>0){
+            // If Product Discount Exists
+            $discounted_price = $proDetails['product_price'] - ($proDetails['product_price']*
+            $proDetails['product_discount']/100);
+        }else{
+            $discounted_price = 0;
+        }
+        return $discounted_price;
+
+    }
+
+    // Product Attributes Discount Price
+    public static function getDiscountedAttrPrice($product_id,$size){
+        $proAttrPrice = ProductsAttribute::where(['product_id'=>$product_id,'size'=>$size])->
+        first()->toArray();
+        $proDetails = Product::select('product_discount','category_id')->
+        where('id',$product_id)->first()->toArray();
+        //echo "<pre>"; print_r($proDetails); die;
+
+        if($proDetails['product_discount']>0){
+            // If Product Discount Exists
+            $discounted_price = $proAttrPrice['price'] - ($proAttrPrice['price']*
+            $proDetails['product_discount']/100);
+        }else{
+            $discounted_price = 0;
+        }
+        return array('product_price'=>$proAttrPrice['price'],'discounted_price'=>$discounted_price);
+        
+    }
+
 }

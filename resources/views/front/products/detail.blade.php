@@ -1,3 +1,4 @@
+<?php use App\Models\Product; ?>
 @extends('layouts.front_layout.front_layout')
 @section('content')
 
@@ -51,8 +52,13 @@
 			<h1 class="fs-5 fw-normal">{{ $productDetails['product_name'] }}</h1>	
 		</div>
 		<div class="price-wrap">
+			<?php $discounted_price = Product::getDiscountedPrice($productDetails['id']); ?>
 			<span class="h6 getAttrPrice">
+            @if($discounted_price>0)  
+				Rs.&nbsp;{{ $discounted_price }}&nbsp;&nbsp; <span style="font-size: 0.875em;">MRP:</span>&nbsp;<del style="font-size: 0.875em;">Rs {{ $productDetails['product_price'] }}</del>
+			@else	
 				MRP:&nbsp;&nbsp;Rs {{ $productDetails['product_price'] }}
+			@endif	
 			</span> 
 			<span class="h6 discount">&nbsp;&nbsp;<code>{{ $productDetails['product_discount'] }}%&nbsp;Off</code></span>
 			<br><small id="main_image" class="form-text text-muted" style="font-size: 10px;">

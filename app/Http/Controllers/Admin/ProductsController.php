@@ -265,7 +265,7 @@ class ProductsController extends Controller
             
         }
 
-        $productdata = Product::select('id','product_name','product_code','main_image')->with('attributes')->find($id);
+        $productdata = Product::select('id','product_name','product_code','main_image','product_price')->with('attributes')->find($id);
         $productdata = json_decode(json_encode($productdata),true);
         $title = "Product Attributes";
         //echo "<pre>"; print_r($productdata); die;
@@ -372,19 +372,21 @@ class ProductsController extends Controller
         $productImage = ProductsImage::select('image')->where('id', $id)->first();
 
         // Get Product Image Path
+        $small_image_path = 'images/product_images/small/';
+        $medium_image_path = 'images/product_images/medium/';
         $large_image_path = 'images/product_images/large/';
 
         // Delete Product Small Image if exists
-        if(file_exists($small_image_path.$productImage->main_image)){
-            unlink($small_image_path.$productImage->main_image);
+        if(file_exists($small_image_path.$productImage->image)){
+            unlink($small_image_path.$productImage->image);
         }
         // Delete Product Medium Image if exists
-        if(file_exists($medium_image_path.$productImage->main_image)){
-            unlink($medium_image_path.$productImage->main_image);
+        if(file_exists($medium_image_path.$productImage->image)){
+            unlink($medium_image_path.$productImage->image);
         }
         // Delete Product large Image if exists
-        if(file_exists($large_image_path.$productImage->main_image)){
-            unlink($large_image_path.$productImage->main_image);
+        if(file_exists($large_image_path.$productImage->image)){
+            unlink($large_image_path.$productImage->image);
         }
 
         // Delete Product Image from SQL table

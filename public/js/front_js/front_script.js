@@ -89,10 +89,16 @@ $(document).ready(function(){
            data:{size:size,product_id:product_id},
            type:'post',
            success:function(resp){
-               $(".getAttrPrice").html("MRP: Rs "+resp);
-           },error:function(){
+               if(resp['discounted_price']>0){
+                    // $(".getAttrPrice").html("<del>Rs. "+resp['product_price' ]+"</del> Rs."+resp['discounted_price']);
+                    $(".getAttrPrice").html("Rs. "+resp['discounted_price' ]+" &nbsp; "+" <small> MRP: <del>Rs."+resp['product_price']+" </del> </small>");    
+
+                }else{
+                    $(".getAttrPrice").html("MRP:"+"&nbsp;"+" Rs "+resp['product_price']);
+                }  
+            },error:function(){
                alert("Error");
-           }
+            }
         });
     });
 

@@ -21,13 +21,20 @@ class Cart extends Model
             $userCartItems = Cart::with(['product'=>function($query){
                 $query->select('id','product_name','product_code','main_image');
             }])->where('user_id',Auth::user()->id)
-            ->get()->toArray();   
+            ->orderBY('id','Desc')->get()->toArray();   
         }else{
             $userCartItems = Cart::with(['product'=>function($query){
                 $query->select('id','product_name','product_code','main_image');
             }])->where('session_id',Session::get('session_id'))
-            ->get()->toArray();
+            ->orderBY('id','Desc')->get()->toArray();
         }
+        
         return $userCartItems;
+    }
+
+    // Get Product Attribute Price
+    public static function getProductAttrPrice($product_id,$size){
+        $attrPrice = ProductsAttribute::select('price')->where(['product_id'=>$product_id,'size'=>$size])->first()->toArray();
+        return $attrPrice['price'];
     }
 }

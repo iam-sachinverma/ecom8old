@@ -118,8 +118,9 @@ class ProductsController extends Controller
         if($request->ajax()){
             $data = $request->all();
             //echo "<pre>"; print_r($data); die;
-            $getProductPrice = ProductsAttribute::where(['product_id'=>$data['product_id'],'size'=>$data['size']])->first();
-            return $getProductPrice->price;
+            $getDiscountedAttrPrice = Product::getDiscountedAttrPrice($data['product_id'],$data['size']);
+        
+            return $getDiscountedAttrPrice;
         }
     }
 
@@ -175,7 +176,6 @@ class ProductsController extends Controller
     // Shopping Cart
     public function cart(){
         $userCartItems = Cart::userCartItems();
-        echo "<pre>"; print_r($userCartItems); die;
-        return view('front.products.cart');
+        return view('front.products.cart')->with(compact('userCartItems'));
     }
 }

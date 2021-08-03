@@ -43,7 +43,7 @@
                 <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
+                  <th colspan="3">Name</th>
                   <th>Image</th>
                   <th>Section</th>
                   <th>Category</th> 
@@ -55,7 +55,7 @@
                 @foreach($products as $product)  
                 <tr>
                   <td>{{ $product->id }}</td>
-                  <td>{{ $product->product_name }}</td>
+                  <td colspan="3">{{ $product->product_name }}</td>
                  
                   <td>
                     <?php $product_image_path = "images/product_images/small/".$product->main_image; ?>
